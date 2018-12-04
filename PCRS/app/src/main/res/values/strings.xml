@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">PCRS</string>
+    <string name="nav_home">首頁</string>
+    <string name="nav_search">探索</string>
+    <string name="nav_favorites">收藏</string>
+    <string name="nav_settings">設定</string>
+</resources>
