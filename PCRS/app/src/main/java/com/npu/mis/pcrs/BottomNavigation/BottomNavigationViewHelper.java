@@ -1,4 +1,4 @@
-package com.npu.mis.pcrs;
+package com.npu.mis.pcrs.BottomNavigation;
 
 import android.support.design.internal.BottomNavigationItemView;
 import android.support.design.internal.BottomNavigationMenuView;

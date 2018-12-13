@@ -2,13 +2,11 @@ package com.npu.mis.pcrs;
 
 import android.content.DialogInterface;
 import android.graphics.Color;
-import android.os.Bundle;
+import android.support.annotation.LayoutRes;
 import android.support.annotation.NonNull;
-import android.support.design.widget.BottomNavigationView;
 import android.support.design.widget.NavigationView;
 import android.support.design.widget.Snackbar;
 import android.support.v4.view.GravityCompat;
-import android.support.v4.view.ViewPager;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v4.widget.NestedScrollView;
 import android.support.v7.app.ActionBarDrawerToggle;
@@ -18,80 +16,27 @@ import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.view.View;
 
-import com.npu.mis.pcrs.BottomNavigation.BaseFragment;
-import com.npu.mis.pcrs.BottomNavigation.BottomNavigationViewHelper;
-import com.npu.mis.pcrs.BottomNavigation.ViewPagerAdapter;
-
-public class MainActivity extends AppCompatActivity {
-    //bottomNavigation
-    private ViewPager viewPager;
-    private MenuItem menuItem;
-    private BottomNavigationView bottomNavigationView;
-    //navigationDrawer
+public class BaseActivity extends AppCompatActivity {
     private DrawerLayout drawerLayout;
     private NestedScrollView nestedScrollView;
-    private Toolbar toolbar;
-    private NavigationView navigationView;
-    private ActionBarDrawerToggle actionBarDrawerToggle;
-    private int CurrentMenuItem = 0;
+    protected Toolbar toolbar;
+    protected NavigationView navigationView;
+    protected ActionBarDrawerToggle actionBarDrawerToggle;
+    protected int CurrentMenuItem = 0;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.drawer_navigation_main);
-
+    public void setContentView(@LayoutRes int layoutResId) {
+        drawerLayout = (DrawerLayout) getLayoutInflater().inflate(R.layout.drawer_navigation_main, null);
+        navigationView = (NavigationView) drawerLayout.findViewById(R.id.navigation_drawer);
+        nestedScrollView = (NestedScrollView) drawerLayout.findViewById(R.id.nestedscroll_view);
+        getLayoutInflater().inflate(layoutResId, nestedScrollView, true);
+        super.setContentView(drawerLayout);
         initView();
-        initData();
-        setToolbar();
         setNavigationDrawer();
-        setBottomNavigation();
-        setViewPager(viewPager);
-
     }
 
     private void initView() {
-        //bottomNavigation
-        viewPager = (ViewPager) findViewById(R.id.view_pager);
-        bottomNavigationView = (BottomNavigationView) findViewById(R.id.bottomnavigation_view);
-        //navigationDrawer
-        drawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
-        nestedScrollView = (NestedScrollView) drawerLayout.findViewById(R.id.nestedscroll_view);
-        navigationView = (NavigationView) drawerLayout.findViewById(R.id.navigation_drawer);
         toolbar = (Toolbar) findViewById(R.id.toolbar);
-    }
-
-    private void initData() {
-
-    }
-
-    private void setBottomNavigation() {
-        BottomNavigationViewHelper.disableShiftMode(bottomNavigationView);
-        bottomNavigationView.setOnNavigationItemSelectedListener(
-                new BottomNavigationView.OnNavigationItemSelectedListener() {
-                    @Override
-                    public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-                        switch (item.getItemId()) {
-                            case R.id.nav_home:
-                                viewPager.setCurrentItem(0);
-                                toolbar.setTitle(R.string.nav_home);
-                                break;
-                            case R.id.nav_search:
-                                viewPager.setCurrentItem(1);
-                                toolbar.setTitle(R.string.nav_home);
-                                break;
-                            case R.id.nav_favorites:
-                                viewPager.setCurrentItem(2);
-                                toolbar.setTitle(R.string.nav_home);
-                                break;
-                            case R.id.nav_settings:
-                                viewPager.setCurrentItem(3);
-                                toolbar.setTitle(R.string.nav_home);
-                                break;
-                        }
-                        return false;
-                    }
-                }
-        );
     }
 
     private void setNavigationDrawer() {
@@ -117,7 +62,7 @@ public class MainActivity extends AppCompatActivity {
                             //finish();
                             break;
                         case R.id.nav_logout:
-                            final AlertDialog alertDialog = new AlertDialog.Builder(MainActivity.this)
+                            final AlertDialog alertDialog = new AlertDialog.Builder(BaseActivity.this)
                                     .setTitle(getString(R.string.logout))
                                     .setMessage("你確定要登出嗎?")
                                     .setPositiveButton("是", new DialogInterface.OnClickListener() {
@@ -149,7 +94,7 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
-    private void setToolbar() {
+    public void setToolbar() {
         setSupportActionBar(toolbar);
         if (getSupportActionBar() != null) {
             getSupportActionBar().setHomeButtonEnabled(true);
@@ -175,38 +120,4 @@ public class MainActivity extends AppCompatActivity {
         drawerLayout.addDrawerListener(actionBarDrawerToggle);
         actionBarDrawerToggle.syncState();
     }
-
-    private void setViewPager(ViewPager viewPager) {
-        this.viewPager.addOnPageChangeListener(
-                new ViewPager.OnPageChangeListener() {
-                    @Override
-                    public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
-
-                    }
-
-                    @Override
-                    public void onPageSelected(int position) {
-                        if (menuItem != null) {
-                            menuItem.setChecked(false);
-                        } else {
-                            bottomNavigationView.getMenu().getItem(0).setChecked(false);
-                        }
-                        menuItem = bottomNavigationView.getMenu().getItem(position);
-                        menuItem.setChecked(true);
-                    }
-
-                    @Override
-                    public void onPageScrollStateChanged(int state) {
-
-                    }
-                }
-        );
-        ViewPagerAdapter adapter = new ViewPagerAdapter(getSupportFragmentManager());
-        adapter.addFragment(BaseFragment.newInstance("首頁"), "");
-        adapter.addFragment(BaseFragment.newInstance("探索"), "");
-        adapter.addFragment(BaseFragment.newInstance("收藏"), "");
-        adapter.addFragment(BaseFragment.newInstance("設定"), "");
-        viewPager.setAdapter(adapter);
-    }
-
 }

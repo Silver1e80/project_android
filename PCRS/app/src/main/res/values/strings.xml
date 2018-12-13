@@ -1,7 +1,43 @@
 <resources>
     <string name="app_name">PCRS</string>
+
+    <string-array name="bottomnavigation_title">
+        <item>首頁</item>
+        <item>探索</item>
+        <item>收藏</item>
+        <item>設定</item>
+    </string-array>
+
     <string name="nav_home">首頁</string>
     <string name="nav_search">探索</string>
     <string name="nav_favorites">收藏</string>
     <string name="nav_settings">設定</string>
+
+
+    <string name="myself">個人資料</string>
+    <string name="about">關於</string>
+    <string name="logout">登出</string>
+    <string name="drawer_open">Drawer opened</string>
+    <string name="drawer_close">Drawer closed</string>
+
+    <string name="btn_insert">新增</string>
+
+    <string-array name="languages">
+        <item>c語言</item>
+        <item>java </item>
+        <item>php</item>
+        <item>xml</item>
+        <item>html</item>
+        <item>SQL語法</item>
+        <item>C#</item>
+        <item>C++</item>
+        <item>Python</item>
+        <item>R</item>
+        <item>Visual Basic</item>
+        <item>delphi</item>
+        <item>Javascript</item>
+        <item>Objective-C</item>
+        <item>Ruby</item>
+        <item>json</item>
+    </string-array>
 </resources>

@@ -5,8 +5,13 @@
     <color name="colorAccent">#fcfcfc</color>
     <color name="colorGray">#404040</color>
     <color name="color_Snow">#fffafa</color>
+    <color name="color_Emerald_Green">#50C878</color>
+    <color name="color_Forest_Green">#228B22</color>
 
+    <color name="color_Light_Gray">#393939</color>
+    <color name="color_Dark_Gray">#2f2f2f</color>
 
+    <color name="Foliage_Green"> #73B839</color>
     <color name="color_Strong_Red">#e60000</color>
     <color name="purple">#6615BB</color>
     <color name="gold">#FFD700</color>
